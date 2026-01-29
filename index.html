@@ -1,0 +1,198 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0, viewport-fit=cover" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="theme-color" content="#FFF8F4" />
+    <title>Re:mindr Glass</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            spacing: {
+              'safe-top': 'env(safe-area-inset-top)',
+              'safe-bottom': 'env(safe-area-inset-bottom)',
+              'safe-left': 'env(safe-area-inset-left)',
+              'safe-right': 'env(safe-area-inset-right)',
+            },
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+              mono: ['JetBrains Mono', 'monospace'],
+            },
+            colors: {
+              accent: {
+                DEFAULT: '#F58316', 
+                light: '#FFEEE3',
+                hover: '#E0720C'
+              },
+              purple: {
+                DEFAULT: '#D039E8',
+                light: '#F8E6FC'
+              },
+            },
+            boxShadow: {
+              'glass': '0 8px 32px 0 rgba(0, 0, 0, 0.05)',
+              'float': '0 20px 40px -5px rgba(245, 131, 22, 0.15)',
+              'key': '0 1px 0px 0px rgba(255,255,255,0.5)',
+            },
+            animation: {
+              'draw': 'draw 1.5s ease-out forwards',
+              'check': 'draw 0.5s 1s ease-out forwards',
+              'bounce-slight': 'bounceSlight 2s infinite',
+              'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+              'ripple': 'ripple 0.6s linear',
+            },
+            keyframes: {
+              draw: {
+                '0%': { strokeDasharray: '100', strokeDashoffset: '100' },
+                '100%': { strokeDasharray: '100', strokeDashoffset: '0' }
+              },
+              bounceSlight: {
+                '0%, 100%': { transform: 'translateY(-5%)' },
+                '50%': { transform: 'translateY(0)' }
+              },
+              fadeInUp: {
+                '0%': { opacity: '0', transform: 'translateY(10px)' },
+                '100%': { opacity: '1', transform: 'translateY(0)' }
+              },
+              ripple: {
+                '0%': { transform: 'scale(0)', opacity: '0.5' },
+                '100%': { transform: 'scale(4)', opacity: '0' }
+              }
+            }
+          },
+        },
+      };
+    </script>
+    <style>
+      :root {
+        --glass-bg: rgba(255, 255, 255, 0.7);
+        --glass-border: rgba(255, 255, 255, 0.4);
+        --glass-shadow: rgba(0, 0, 0, 0.03);
+        --text-primary: #1a1a1a;
+      }
+
+      .dark {
+        --glass-bg: rgba(30, 41, 59, 0.6);
+        --glass-border: rgba(255, 255, 255, 0.1);
+        --glass-shadow: rgba(0, 0, 0, 0.3);
+        --text-primary: #ffffff;
+      }
+
+      body {
+        -webkit-font-smoothing: antialiased;
+        overscroll-behavior: none;
+        -webkit-tap-highlight-color: transparent;
+        /* Padding handled by Tailwind safe-area utilities in App.tsx */
+        height: 100dvh;
+        width: 100vw;
+        overflow: hidden;
+      }
+      
+      .glass-card {
+        background: var(--glass-bg);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid var(--glass-border);
+        box-shadow: 0 4px 30px var(--glass-shadow);
+        transition: background 0.3s, border 0.3s;
+      }
+
+      .glass-card-input {
+        background: var(--glass-bg);
+        backdrop-filter: blur(25px);
+        -webkit-backdrop-filter: blur(25px);
+        border: 1px solid var(--glass-border);
+        box-shadow: 0 10px 40px -10px var(--glass-shadow);
+      }
+
+      .no-scrollbar::-webkit-scrollbar { display: none; }
+      .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+      .chip {
+        background: rgba(244, 241, 238, 0.8);
+        border: 1px solid rgba(255,255,255,0.5);
+        border-radius: 8px;
+        padding: 6px 10px;
+        font-size: 13px;
+        color: #333;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        transition: all 0.2s;
+        white-space: nowrap;
+      }
+      .dark .chip {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 255, 255, 0.2);
+        color: #ddd;
+      }
+      .chip.active {
+        background: #FFEEE3;
+        color: #F58316;
+        border-color: #F58316;
+      }
+      .dark .chip.active {
+        background: rgba(245, 131, 22, 0.2);
+        color: #F58316;
+      }
+
+      .animate-draw { stroke-dasharray: 100; animation: draw 1.5s ease-out forwards; }
+      .animate-check { stroke-dasharray: 20; stroke-dashoffset: 20; animation: draw 0.5s 1.2s ease-out forwards; }
+      
+      .ripple-effect {
+        position: absolute;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%);
+        transform: scale(0);
+        animation: ripple 0.6s linear;
+        pointer-events: none;
+      }
+      
+      button, .clickable { position: relative; overflow: hidden; }
+      button:active { transform: scale(0.96); transition: transform 0.1s; }
+
+      @keyframes draw { to { stroke-dashoffset: 0; } }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <script type="importmap">
+    {
+      "imports": {
+        "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
+        "react/": "https://esm.sh/react@^19.2.4/",
+        "react": "https://esm.sh/react@^19.2.4",
+        "lucide-react": "https://esm.sh/lucide-react@^0.563.0"
+      }
+    }
+    </script>
+    <script>
+      document.addEventListener('click', function(e) {
+        const target = e.target.closest('button, .glass-card, .clickable');
+        if (target) {
+          const circle = document.createElement('span');
+          const diameter = Math.max(target.clientWidth, target.clientHeight);
+          const radius = diameter / 2;
+          const rect = target.getBoundingClientRect();
+          circle.style.width = circle.style.height = `${diameter}px`;
+          circle.style.left = `${e.clientX - rect.left - radius}px`;
+          circle.style.top = `${e.clientY - rect.top - radius}px`;
+          circle.classList.add('ripple-effect');
+          const existingRipple = target.querySelector('.ripple-effect');
+          if (existingRipple) existingRipple.remove();
+          target.appendChild(circle);
+          setTimeout(() => circle.remove(), 600);
+        }
+      });
+    </script>
+  <link rel="stylesheet" href="/index.css">
+</head>
+  <body>
+    <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>
