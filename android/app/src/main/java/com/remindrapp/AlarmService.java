@@ -10,7 +10,7 @@ import android.view.View;
 import android.graphics.PixelFormat;
 import android.view.Gravity;
 import android.widget.Button;
-import com.remindrapp.R;
+import com.remindrapp.R; // Ringtones link karne ke liye
 
 public class AlarmService extends Service {
     private MediaPlayer mp;
@@ -19,14 +19,14 @@ public class AlarmService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        // 1. Audio Engine: Aapki ringtone bajana
+        // 1. Ringtone Engine
         mp = MediaPlayer.create(this, R.raw.iphone_alarm); 
         if (mp != null) {
             mp.setLooping(true);
             mp.start();
         }
 
-        // 2. UI Engine: Lock screen ke upar Glass popup dikhana
+        // 2. Glassmorphic UI Engine
         try {
             wm = (WindowManager) getSystemService(WINDOW_SERVICE);
             LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
@@ -42,12 +42,9 @@ public class AlarmService extends Service {
             params.gravity = Gravity.CENTER;
             wm.addView(glassView, params);
 
-            // Stop button ka logic
             Button stopBtn = glassView.findViewById(R.id.stop_btn);
             stopBtn.setOnClickListener(v -> stopSelf());
-
         } catch (Exception e) {
-            // Agar permission nahi hai toh crash nahi hoga, bas popup nahi dikhega
             e.printStackTrace();
         }
 

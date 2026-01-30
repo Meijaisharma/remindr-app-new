@@ -1,5 +1,7 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.remindrapp">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -8,8 +10,11 @@
         android:label="Remindr"
         android:icon="@mipmap/ic_launcher"
         android:allowBackup="true">
-
-        <activity android:name=".MainActivity" android:exported="true">
+        
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -17,7 +22,11 @@
         </activity>
 
         <receiver android:name=".AlarmReceiver" android:exported="false" />
-        <service android:name=".AlarmService" android:foregroundServiceType="mediaPlayback" android:exported="false" />
+        <service 
+            android:name=".AlarmService" 
+            android:foregroundServiceType="mediaPlayback" 
+            android:exported="false" />
+
     </application>
 </manifest>
 
