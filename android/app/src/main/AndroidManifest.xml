@@ -8,12 +8,16 @@
     <application
         android:label="Remindr"
         android:icon="@mipmap/ic_launcher"
-        android:allowBackup="true">
+        android:allowBackup="true"
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         
         <activity
             android:name=".MainActivity"
-            android:exported="true"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            android:label="Remindr"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|uiMode"
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustResize"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -21,10 +25,7 @@
         </activity>
 
         <receiver android:name=".AlarmReceiver" android:exported="false" />
-        <service 
-            android:name=".AlarmService" 
-            android:foregroundServiceType="mediaPlayback" 
-            android:exported="false" />
+        <service android:name=".AlarmService" android:foregroundServiceType="mediaPlayback" android:exported="false" />
 
     </application>
 </manifest>
