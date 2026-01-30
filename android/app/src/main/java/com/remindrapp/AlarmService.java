@@ -19,14 +19,14 @@ public class AlarmService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        // 1. Ringtone Engine
+        // 1. Ringtone Engine: Pehle se copy ki gayi files ko bajana
         mp = MediaPlayer.create(this, R.raw.iphone_alarm); 
         if (mp != null) {
             mp.setLooping(true);
             mp.start();
         }
 
-        // 2. Glassmorphic UI Engine
+        // 2. Glassmorphic UI Engine: Lock screen popup
         try {
             wm = (WindowManager) getSystemService(WINDOW_SERVICE);
             LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
