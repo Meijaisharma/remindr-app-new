@@ -3,21 +3,22 @@
     android:layout_height="wrap_content"
     android:background="@drawable/glass_bg"
     android:orientation="vertical"
-    android:padding="20dp"
-    android:layout_gravity="center">
+    android:padding="25dp"
+    android:gravity="center">
 
     <Text
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Remindr Alarm"
+        android:text="⏰ Remindr Alarm"
         android:textColor="#FFFFFF"
-        android:textSize="22sp"
+        android:textSize="24sp"
         android:textStyle="bold" />
 
     <Button
         android:id="@+id/stop_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:text="STOP"
         android:backgroundTint="#FF3B30"
         android:textColor="#FFFFFF" />
