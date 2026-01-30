@@ -1,4 +1,4 @@
-ackage com.remindrapp;
+package com.remindrapp;
 
 import android.app.Service;
 import android.content.Intent;
@@ -10,7 +10,7 @@ import android.view.View;
 import android.graphics.PixelFormat;
 import android.view.Gravity;
 import android.widget.Button;
-import com.remindrapp.R; 
+import com.remindrapp.R; // Resources link karne ke liye
 
 public class AlarmService extends Service {
     private MediaPlayer mp;
@@ -19,14 +19,14 @@ public class AlarmService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        // 1. Ringtone Engine: Pehle se copy ki gayi files ko bajana
+        // Play sound (Process 1.3)
         mp = MediaPlayer.create(this, R.raw.iphone_alarm); 
         if (mp != null) {
             mp.setLooping(true);
             mp.start();
         }
 
-        // 2. Glassmorphic UI Engine: Lock screen popup
+        // Glassmorphic Popup UI (Process 3)
         try {
             wm = (WindowManager) getSystemService(WINDOW_SERVICE);
             LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
