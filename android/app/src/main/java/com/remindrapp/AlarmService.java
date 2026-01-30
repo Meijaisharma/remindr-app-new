@@ -1,4 +1,4 @@
-package com.remindrapp;
+ackage com.remindrapp;
 
 import android.app.Service;
 import android.content.Intent;
@@ -10,7 +10,7 @@ import android.view.View;
 import android.graphics.PixelFormat;
 import android.view.Gravity;
 import android.widget.Button;
-import com.remindrapp.R; // Ringtones link karne ke liye
+import com.remindrapp.R; 
 
 public class AlarmService extends Service {
     private MediaPlayer mp;
