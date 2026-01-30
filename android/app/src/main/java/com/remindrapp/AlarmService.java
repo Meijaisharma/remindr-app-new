@@ -4,22 +4,28 @@ import android.app.Service;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.IBinder;
+import com.remindrapp.R; // Ye line dhoond rahi hai aapki ringtone ko
 
 public class AlarmService extends Service {
     MediaPlayer mp;
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        // Aapne jo iphone_alarm.mp3 copy ki thi, wo baje gi
+        // Aapki favourite ringtone yahan bajegi
         mp = MediaPlayer.create(this, R.raw.iphone_alarm); 
-        mp.setLooping(true);
-        mp.start();
+        if (mp != null) {
+            mp.setLooping(true);
+            mp.start();
+        }
         return START_STICKY;
     }
 
     @Override
     public void onDestroy() {
-        if (mp != null) mp.stop();
+        if (mp != null) {
+            mp.stop();
+            mp.release();
+        }
         super.onDestroy();
     }
 
